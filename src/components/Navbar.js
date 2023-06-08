@@ -15,18 +15,24 @@ const Navbar = () => {
       <Link to="/">ReactGram</Link>
       <form>
         <BsSearch />
-        <input type="text" />
+        <input placeholder="Pesquisar..." type="text" />
+      </form>
 
-        <ul id="nav-links">
+      <ul id="nav-links">
+        <li>
           <NavLink to="/">
             <BsHouseDoorFill />
           </NavLink>
+        </li>
 
+        <li>
           <NavLink to="/login">Entrar</NavLink>
+        </li>
 
+        <li>
           <NavLink to="/register">Cadastrar</NavLink>
-        </ul>
-      </form>
+        </li>
+      </ul>
     </nav>
   );
 };
