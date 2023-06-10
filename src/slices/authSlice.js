@@ -11,7 +11,7 @@ const initialState = {
 }
 
 export const register = createAsyncThunk("auth/register", async(user,thunkAPI) => {
-    const data = authService.register(user)
+    const data = await authService.register(user)
 
     if(data.errors){
         return thunkAPI.rejectWithValue(data.errors[0])
@@ -37,6 +37,7 @@ export const authSlice = createSlice({
         }).addCase(register.fulfilled,(state,action) => {
             state.success = true;
             state.error = false;
+            state.loading = false;
             state.user = action.payload
         }).addCase(register.rejected,(state,action) => {
             state.loading = false;
