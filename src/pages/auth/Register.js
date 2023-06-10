@@ -2,13 +2,14 @@ import "./auth.css";
 
 //components
 import { Link } from "react-router-dom";
+import Message from "../../components/Message";
 
 //hooks
 import { useState, useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //redux
-import { register,reset } from "../../slices/authSlice";
+import { register, reset } from "../../slices/authSlice";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,9 +17,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const dispatch = useDispatch()
-  const {loading,error} = useSelector((state)=> state.auth)
-
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,15 +27,15 @@ const Register = () => {
       name,
       email,
       password,
-      confirmPassword
-    }
+      confirmPassword,
+    };
 
-    dispatch(register(user))
+    dispatch(register(user));
   };
 
-  useEffect(()=> {
-    dispatch(reset())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(reset());
+  }, [dispatch]);
 
   return (
     <div id="register">
@@ -66,7 +66,9 @@ const Register = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           value={confirmPassword || ""}
         />
-        <input type="submit" value="Cadastrar" />
+        {!loading && <input type="submit" value="Cadastrar" />}
+        {loading && <input type="submit" value="Aguarde..." disabled />}
+        {error && <Message msg={error} type="error" />}
       </form>
       <p>
         Ja tem conta? <Link to="/login">Clique aqui!</Link>

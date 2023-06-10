@@ -21,11 +21,11 @@ export const requestConfig = (method, data, token = null, image = null) => {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     };
   }
 
-  if(token){
+  if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
