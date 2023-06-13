@@ -13,7 +13,7 @@ const initialState = {
 export const register = createAsyncThunk(
   "auth/register",
   async (user, thunkAPI) => {
-    const data = authService.register(user);
+    const data = await authService.register(user);
 
     if (data.errors) {
       return thunkAPI.rejectWithValue(data.errors[0]);
@@ -28,7 +28,7 @@ export const logout = createAsyncThunk("auth/logout", async()=> {
 })
 
 export const login = createAsyncThunk("auth/login", async(user,thunkAPI) => {
-   const data = authService.login(user)
+   const data = await authService.login(user)
 
    if(data.errors){
     return thunkAPI.rejectWithValue(data.errors[0])
