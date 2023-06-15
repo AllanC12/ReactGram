@@ -14,7 +14,7 @@ const EditProfile = () => {
       {/* Preview da imagem */}
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Nome" />
-        <input type="text" placeholder="E-mail" disbled />
+        <input type="text" placeholder="E-mail" disabled />
         <label>
           <span>Imagem do perfil</span>
           <input type="file" />
