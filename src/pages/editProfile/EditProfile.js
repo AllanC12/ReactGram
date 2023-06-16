@@ -23,22 +23,29 @@ const EditProfile = () => {
   const [password, setPassword] = useState("");
   const [previewImage, setPreviewImage] = useState("");
 
+  const handleFile = (e) => {
+    const image = e.target.files[0];
+
+    setPreviewImage(image);
+    setProfileImage(image);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
-  useEffect(()=> {
-    dispatch(profile())
-  },[dispatch])
+  useEffect(() => {
+    dispatch(profile());
+  }, [dispatch]);
 
-  useEffect(()=>{
-    if(user){
-      setName(user.name)
-      setEmail(user.email)
-      setBio(user.bio)
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setBio(user.bio);
     }
-  },[user])
- 
+  }, [user]);
+
   return (
     <div id="edit-profile">
       <h2>Edite seus dados</h2>
@@ -46,6 +53,17 @@ const EditProfile = () => {
         Adiciona uma imagem de perfil e conte mais sobre você...
       </p>
       {/* Preview da imagem */}
+      {user.profileImage ||
+        (previewImage && (
+          <img
+            className="profile-image"
+            src={
+              previewImage
+                ? URL.createObjectURL(previewImage)
+                : `${uploads}/users/${user.profileImage}`
+            }
+          />
+        ))}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -56,7 +74,7 @@ const EditProfile = () => {
         <input type="text" placeholder="E-mail" disabled value={email || ""} />
         <label>
           <span>Imagem do perfil</span>
-          <input type="file" />
+          <input type="file" onChange={handleFile} />
         </label>
         <label>
           <span>Bio</span>
