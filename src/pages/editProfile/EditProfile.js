@@ -16,6 +16,8 @@ const EditProfile = () => {
 
   const { user, loading, error, message } = useSelector((state) => state.user);
 
+  console.log(user);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState("");
@@ -25,7 +27,7 @@ const EditProfile = () => {
 
   const handleFile = (e) => {
     const image = e.target.files[0];
-
+    
     setPreviewImage(image);
     setProfileImage(image);
   };
@@ -34,36 +36,35 @@ const EditProfile = () => {
     e.preventDefault();
 
     const userData = {
-      name
+      name,
+    };
+
+    if (profileImage) {
+      userData.profileImage = profileImage;
     }
 
-    if(profileImage){
-      userData.profileImage = profileImage
+    if (bio) {
+      userData.bio = bio;
     }
 
-    if(bio){
-      userData.bio = bio
+    if (password) {
+      userData.password = password;
     }
 
-    if(password){
-      userData.password = password
-    }
+    const formData = new FormData();
 
-    const formData = new FormData()
+    const userFormData = Object.keys(userData).forEach((key) =>
+      formData.append(key, userData[key])
+    );
 
-    const userFormData = Object.keys(userData).forEach((key) => formData.append(key, userData[key]))
+    formData.append("user", userFormData);
 
-    formData.append("user",userFormData)
+    await dispatch(updateProfile(formData));
 
-    await dispatch(updateProfile(formData))
-
-    setTimeout(()=>{
-      dispatch(resetMessage())
-    },2000)
-
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
   };
-
-
 
   useEffect(() => {
     dispatch(profile());
@@ -83,18 +84,20 @@ const EditProfile = () => {
       <p className="subtitle">
         Adiciona uma imagem de perfil e conte mais sobre você...
       </p>
-      {/* Preview da imagem */}
-      {user.profileImage ||
-        (previewImage && (
-          <img
-            className="profile-image"
-            src={
-              previewImage
-                ? URL.createObjectURL(previewImage)
-                : `${uploads}/users/${user.profileImage}`
-            }
-          />
-        ))}
+
+      {(user.profileImage || previewImage) && (
+        <img
+          className="profile-image"
+          src={
+            previewImage
+              ? URL.createObjectURL(previewImage)
+              : `${uploads}/users/${user.profileImage}`
+          }
+          alt={user.name}
+        />
+      )}
+        
+
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -128,7 +131,7 @@ const EditProfile = () => {
         {!loading && <input type="submit" value="Atualizar" />}
         {loading && <input type="submit" value="Aguarde..." disabled />}
         {error && <Message msg={error} type="error" />}
-        {message && <Message msg={message} type="success"/>}
+        {message && <Message msg={message} type="success" />}
       </form>
     </div>
   );
