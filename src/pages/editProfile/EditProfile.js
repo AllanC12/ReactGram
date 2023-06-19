@@ -9,15 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 //components
 import Message from "../../components/Message";
 
-import { profile, updateProfile, resetMessage } from "../../slices/userSlice";
+import { profile, updateProfile, resetMessage} from "../../slices/userSlice";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
 
   const { user, loading, error, message } = useSelector((state) => state.user);
 
-  console.log(user);
-
+ 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState("");
