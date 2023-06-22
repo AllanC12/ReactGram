@@ -1,5 +1,19 @@
-import {api,requestConfig} from "../utils/config"
+import { api, requestConfig } from "../utils/config";
 
-const photoService = {}
+const publishPhoto = async (data, token) => {
+  const config = requestConfig("POST", data, token, true);
 
-export default photoService
+  try {
+    const res = await fetch(api + "/photos", config)
+      .then((res) => res.json())
+      .cactch((err) => err);
+
+      return res
+  } catch (error) {}
+};
+
+const photoService = {
+    publishPhoto,
+};
+
+export default photoService;
