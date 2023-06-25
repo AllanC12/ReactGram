@@ -14,9 +14,13 @@ import { useParams } from "react-router-dom";
 
 //redux
 import { getUserDetails } from "../../slices/userSlice";
-import { publishPhoto,resetMessage } from "../../slices/photoSlice";
+import {
+  publishPhoto,
+  resetMessage,
+  getUserPhotos,
+} from "../../slices/photoSlice";
 
- const Profile = () => {
+const Profile = () => {
   const { id } = useParams();
   const { user, loading } = useSelector((state) => state.user);
   const { user: authUser } = useSelector((state) => state.auth);
@@ -28,6 +32,7 @@ import { publishPhoto,resetMessage } from "../../slices/photoSlice";
     error: errorPhoto,
     message: messagePhoto,
   } = useSelector((state) => state.photo);
+
 
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
@@ -56,19 +61,20 @@ import { publishPhoto,resetMessage } from "../../slices/photoSlice";
 
     formData.append("photo", photoFormData);
 
-    dispatch(publishPhoto(formData))
-
-    console.log(formData);
+    dispatch(publishPhoto(formData));
 
     setTitle("");
-    
+
     setTimeout(() => {
       dispatch(resetMessage());
     }, 2000);
+
+    console.log(messagePhoto)
   };
 
   useEffect(() => {
     dispatch(getUserDetails(id));
+    dispatch(getUserPhotos(id));
   }, [dispatch, id]);
 
   if (loading) {
@@ -107,13 +113,36 @@ import { publishPhoto,resetMessage } from "../../slices/photoSlice";
                 <input type="file" onChange={handleFile} />
               </label>
 
-              {!loadingPhoto && <input type="submit" value="Postar" />}
-              {loadingPhoto && <input type="submit" value="Aguarde..." disabled />}
-              {errorPhoto && <Message msg={errorPhoto} type="error" />}
-              {messagePhoto && <Message msg={messagePhoto} type="success" />}
+              {!loadingPhoto && (<input type="submit" value="Postar" />)}
+              {loadingPhoto && (
+                <input type="submit" value="Aguarde..." disabled />
+              )}
+
             </form>
           </div>
+          {errorPhoto && <Message msg={errorPhoto} type="error" />}
+          {messagePhoto && <Message msg={messagePhoto} type="success" />}
         </>
+      )}
+
+      <div className="user-photos">
+        <h2>Fotos publicadas: </h2>
+        <div className="photos-container">
+            {photos && photos.map(photo => (
+              <div className="photo" key={photo._id}>
+                {photo.image && (
+                  <img src={`${uploads}/photos/${photo.image}`} alt={photo.title}/>
+                )}
+              </div>
+            ))}
+        </div>
+        {id === authUser.id ? (
+          <p>Actions</p>
+        ) : (<Link className="btn" to={`photos/${photos._id}`}>Ver</Link>)}
+      </div>
+
+      {photos.length === 0 && (
+        <p>Ainda não há fotos publicadas</p>
       )}
     </div>
   );
