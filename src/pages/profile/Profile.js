@@ -33,6 +33,7 @@ const Profile = () => {
     message: messagePhoto,
   } = useSelector((state) => state.photo);
 
+
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
@@ -67,6 +68,8 @@ const Profile = () => {
     setTimeout(() => {
       dispatch(resetMessage());
     }, 2000);
+
+    console.log(messagePhoto)
   };
 
   useEffect(() => {
@@ -110,14 +113,15 @@ const Profile = () => {
                 <input type="file" onChange={handleFile} />
               </label>
 
-              {!loadingPhoto && <input type="submit" value="Postar" />}
+              {!loadingPhoto && (<input type="submit" value="Postar" />)}
               {loadingPhoto && (
                 <input type="submit" value="Aguarde..." disabled />
               )}
-              {errorPhoto && <Message msg={errorPhoto} type="error" />}
-              {messagePhoto && <Message msg={messagePhoto} type="success" />}
+
             </form>
           </div>
+          {errorPhoto && <Message msg={errorPhoto} type="error" />}
+          {messagePhoto && <Message msg={messagePhoto} type="success" />}
         </>
       )}
 
