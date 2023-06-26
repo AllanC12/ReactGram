@@ -18,6 +18,7 @@ import {
   publishPhoto,
   resetMessage,
   getUserPhotos,
+  deletePhoto,
 } from "../../slices/photoSlice";
 
 const Profile = () => {
@@ -33,7 +34,6 @@ const Profile = () => {
     message: messagePhoto,
   } = useSelector((state) => state.photo);
 
-
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
 
@@ -44,6 +44,12 @@ const Profile = () => {
     const image = e.target.files[0];
     setImage(image);
   };
+
+  const resetMessageComponent = () => {
+    setTimeout(() => {
+      dispatch(resetMessage());
+    }, 2000);
+  }
 
   const submitHandle = (e) => {
     e.preventDefault();
@@ -65,12 +71,13 @@ const Profile = () => {
 
     setTitle("");
 
-    setTimeout(() => {
-      dispatch(resetMessage());
-    }, 2000);
+    resetMessageComponent()
+   };
 
-    console.log(messagePhoto)
-  };
+   const handleDelete = (id) => {
+    dispatch(deletePhoto(id))
+    resetMessageComponent()
+   }
 
   useEffect(() => {
     dispatch(getUserDetails(id));
@@ -113,11 +120,10 @@ const Profile = () => {
                 <input type="file" onChange={handleFile} />
               </label>
 
-              {!loadingPhoto && (<input type="submit" value="Postar" />)}
+              {!loadingPhoto && <input type="submit" value="Postar" />}
               {loadingPhoto && (
                 <input type="submit" value="Aguarde..." disabled />
               )}
-
             </form>
           </div>
           {errorPhoto && <Message msg={errorPhoto} type="error" />}
@@ -126,24 +132,35 @@ const Profile = () => {
       )}
 
       <div className="user-photos">
-        <h2>Fotos publicadas: </h2>
+        <h2>Fotos publicadas:</h2>
         <div className="photos-container">
-            {photos && photos.map(photo => (
+          {photos &&
+            photos.map((photo) => (
               <div className="photo" key={photo._id}>
                 {photo.image && (
-                  <img src={`${uploads}/photos/${photo.image}`} alt={photo.title}/>
+                  <img
+                    src={`${uploads}/photos/${photo.image}`}
+                    alt={photo.title}
+                  />
+                )}
+                {id === authUser.id ? (
+                  <div className="actions">
+                    <Link to={`/photos/${photo._id}`}>
+                      <BsFillEyeFill />
+                    </Link>
+                    <BsPencilFill  />
+                    <BsXLg onClick={()=> handleDelete(photo._id)}/>
+                  </div>
+                ) : (
+                  <Link to={`/photos/${photo._id}`}>
+                    Ver
+                  </Link>
                 )}
               </div>
             ))}
+          {photos.length === 0 && <p>Ainda não há fotos publicadas...</p>}
         </div>
-        {id === authUser.id ? (
-          <p>Actions</p>
-        ) : (<Link className="btn" to={`photos/${photos._id}`}>Ver</Link>)}
       </div>
-
-      {photos.length === 0 && (
-        <p>Ainda não há fotos publicadas</p>
-      )}
     </div>
   );
 };
