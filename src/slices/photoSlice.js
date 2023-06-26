@@ -26,13 +26,28 @@ export const publishPhoto = createAsyncThunk(
 
 export const getUserPhotos = createAsyncThunk(
   "photo/userPhotos",
-  async(id,thunkAPI) => {
+  async (id, thunkAPI) => {
     const token = thunkAPI.getState().auth.user.token;
-    const data = await photoService.getUserPhotos(id,token)
+    const data = await photoService.getUserPhotos(id, token);
 
-    return data
+    return data;
   }
-)
+);
+
+export const deletePhoto = createAsyncThunk(
+  "photos/delete",
+  async (id, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.deletePhoto(id, token);
+
+    if (data.errors) {
+      return thunkAPI.rejectWithValue(data.errors[0]);
+    }
+    return data;
+  }
+);
+
+
 export const photoSlice = createSlice({
   name: "photo",
   initialState,
@@ -58,14 +73,33 @@ export const photoSlice = createSlice({
       .addCase(getUserPhotos.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      }).addCase(getUserPhotos.pending, (state) => {
+      })
+      .addCase(getUserPhotos.pending, (state) => {
         state.loading = true;
         state.error = false;
-      }).addCase(getUserPhotos.fulfilled, (state, action) => {
+      })
+      .addCase(getUserPhotos.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
         state.error = false;
         state.photos = action.payload;
+      })
+      .addCase(deletePhoto.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deletePhoto.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(deletePhoto.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = false;
+        state.photos = state.photos.filter(photo => {
+          return photo._id !== action.payload.id
+        })
+        state.message = action.payload.message
       });
   },
 });
