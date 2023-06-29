@@ -65,9 +65,18 @@ export const updatePhoto = createAsyncThunk(
   }
 );
 
-export const getPhoto = createAsyncThunk("photo/getPhoto", async (id,thunkAPI) => {
-  const token = thunkAPI.getState().auth.user.token
-  const data = await photoService.getPhoto(id,token);
+export const getPhoto = createAsyncThunk(
+  "photo/getPhoto",
+  async (id, thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token;
+    const data = await photoService.getPhoto(id, token);
+    return data;
+  }
+);
+
+export const likr = createAsyncThunk("photo/like", async (id, token) => {
+  const token = thunkAPI.getState().auth.user.token;
+  const data = await photoService.like(id, token);
   return data;
 });
 
@@ -145,7 +154,8 @@ export const photoSlice = createSlice({
           return photo;
         });
         state.message = action.payload.message;
-      })  .addCase(getPhoto.pending, (state) => {
+      })
+      .addCase(getPhoto.pending, (state) => {
         state.loading = true;
         state.error = false;
       })
@@ -154,7 +164,29 @@ export const photoSlice = createSlice({
         state.success = true;
         state.error = false;
         state.photo = action.payload;
-      });
+      })
+      .addCase(like.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = false;
+
+        if (state.photo.likes) {
+          state.photo.likes.push(action.payload.userId);
+        }
+
+        state.photos.map((photo) => {
+          if (photo._id === action.payload.photo.photoId) {
+            return photo.likes.push(action.payload.userId)
+          }
+
+          return photo;
+        });
+        state.message = action.payload.message;
+      })
+      .addCase(like.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+       });
   },
 });
 
