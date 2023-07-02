@@ -24,8 +24,8 @@ const Photo = () => {
     dispatch(getPhoto(id))
   },[dispatch,id])
 
-  const handleLike = () => {
-    dispatch(like(photo.id))
+  const handleLike = (photo) => {
+    dispatch(like(photo))
   }
 
   if(loading){
