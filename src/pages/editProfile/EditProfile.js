@@ -3,6 +3,7 @@ import "./EditProfile.css";
 import { uploads } from "../../utils/config";
 
 //hooks
+import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,7 +14,7 @@ import { profile, updateProfile, resetMessage} from "../../slices/userSlice";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
-
+  const resetMessage = useResetComponentMessage(dispatch)
   const { user, loading, error, message } = useSelector((state) => state.user);
 
  
@@ -60,9 +61,7 @@ const EditProfile = () => {
 
     await dispatch(updateProfile(formData));
 
-    setTimeout(() => {
-      dispatch(resetMessage());
-    }, 2000);
+    resetMessage()
   };
 
   useEffect(() => {
