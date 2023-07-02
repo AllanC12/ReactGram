@@ -14,8 +14,8 @@ const publishPhoto = async (data, token) => {
   }
 };
 
-const getUserPhotos = async (id, token) => {
-  const config = requestConfig("GET", null, token);
+const getUserPhotos = async (id,token) => {
+  const config = requestConfig("GET",null,token);
 
   try {
     const res = await fetch(api + "/photos/user/" + id, config)
@@ -52,8 +52,8 @@ const updatePhoto = async (data, id,token) => {
   }
 };
 
-const getPhoto = async(id,token) => {
-  const config = requestConfig("GET",null,token)
+const getPhoto = async(id) => {
+  const config = requestConfig("GET")
 
   try {
     const res = await fetch(api + "/photos/" + id, config)
@@ -70,7 +70,7 @@ const like = async (id,token) => {
   const config = requestConfig("PUT",null,token)
 
   try {
-    const res = await fetch(api + "/photos/like" + id, config)
+    const res = await fetch(api + "/photos/like/" + id, config)
                 .then(res => res.json())
                 .catch(err => err)
     return res
