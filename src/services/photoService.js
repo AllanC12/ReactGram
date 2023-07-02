@@ -14,8 +14,8 @@ const publishPhoto = async (data, token) => {
   }
 };
 
-const getUserPhotos = async (id,token) => {
-  const config = requestConfig("GET",null,token);
+const getUserPhotos = async (id, token) => {
+  const config = requestConfig("GET", null, token);
 
   try {
     const res = await fetch(api + "/photos/user/" + id, config)
@@ -40,7 +40,7 @@ const deletePhoto = async (id, token) => {
   }
 };
 
-const updatePhoto = async (data, id,token) => {
+const updatePhoto = async (data, id, token) => {
   const config = requestConfig("PUT", data, token);
   try {
     const res = await fetch(api + "/photos/" + id, config)
@@ -52,32 +52,45 @@ const updatePhoto = async (data, id,token) => {
   }
 };
 
-const getPhoto = async(id,token) => {
-  const config = requestConfig("GET",null,token)
+const getPhoto = async (id, token) => {
+  const config = requestConfig("GET", null, token);
 
   try {
     const res = await fetch(api + "/photos/" + id, config)
-                .then(resp => resp.json())
-                .catch(error => error)
+      .then((resp) => resp.json())
+      .catch((error) => error);
 
-   return res
+    return res;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-const like = async (id,token) => {
-  const config = requestConfig("PUT",null,token)
+const like = async (id, token) => {
+  const config = requestConfig("PUT", null, token);
 
   try {
     const res = await fetch(api + "/photos/like/" + id, config)
-                .then(res => res.json())
-                .catch(err => err)
-    return res
+      .then((res) => res.json())
+      .catch((err) => err);
+    return res;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
+
+const comment = async (data,id,token) => {
+  const config = requestConfig("PUT", data, token);
+
+  try {
+    const res = await fetch(api + "/photos/comment/" + id, config)
+      .then((res) => res.json())
+      .catch((err) => err);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const photoService = {
   publishPhoto,
@@ -85,7 +98,8 @@ const photoService = {
   deletePhoto,
   updatePhoto,
   getPhoto,
-  like
+  like,
+  comment
 };
 
 export default photoService;
