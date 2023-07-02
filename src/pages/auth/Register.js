@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Message from "../../components/Message";
 
 //hooks
+import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,6 +20,7 @@ const Register = () => {
 
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
+  const resetMessage = useResetComponentMessage(dispatch)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,6 +33,7 @@ const Register = () => {
     };
 
     dispatch(register(user));
+    resetMessage()
   };
 
   useEffect(() => {

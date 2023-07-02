@@ -7,15 +7,17 @@ import Message from "../../components/Message";
 //hooks
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useResetComponentMessage } from "../../hooks/useResetComponentMessage";
 
 //redux
 import { login,reset } from "../../slices/authSlice";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const dispatch = useDispatch()
+  const resetMessage = useResetComponentMessage(dispatch)
+  const [email, setEmail] = useState("");
+  
+  const [password, setPassword] = useState("");
   const {loading,error} = useSelector(state => state.auth)
 
   const handleSubmit = (e) => {

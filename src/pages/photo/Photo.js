@@ -12,6 +12,7 @@ import { useSelector,useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 
 import { getPhoto,like } from "../../slices/photoSlice"
+import { useResetComponentMessage } from "../../hooks/useResetComponentMessage"
 
 const Photo = () => {
 
@@ -26,7 +27,10 @@ const Photo = () => {
 
   const handleLike = (photo) => {
     dispatch(like(photo))
+    resetMessage()
   }
+
+  const resetMessage = useResetComponentMessage(dispatch)
 
   if(loading){
     return <p>Carregando...</p>
@@ -35,6 +39,8 @@ const Photo = () => {
     <div id="photo">
         <PhotoItem photo={photo}/>
         <LikeContainer photo={photo} user={user} handleLike={handleLike}/>
+        {error && <Message type="error" msg={message}/>}
+        {message && <Message type="success" msg={message}/>}
     </div>
   )
 }
