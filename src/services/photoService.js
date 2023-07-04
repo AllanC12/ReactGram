@@ -93,7 +93,7 @@ const comment = async (data,id,token) => {
   }
 };
 
-const getAllphotos = async () => {
+const getAllPhotos = async () => {
   const config = requestConfig("GET")
 
   try {
@@ -115,7 +115,7 @@ const photoService = {
   getPhoto,
   like,
   comment,
-  getAllphotos
+  getAllPhotos
 };
 
 export default photoService;

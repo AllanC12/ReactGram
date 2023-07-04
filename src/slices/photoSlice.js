@@ -93,13 +93,20 @@ export const comment = createAsyncThunk(
       token
       );
       
-      
       if(data.errors) {
         return thunkAPI.rejectWithValue(data.errors[0]);
       }
     return data;
   }
 );
+
+export const getAllPhotos = createAsyncThunk("photo/getall",
+ async () => {
+    const data = await photoService.getAllPhotos()
+
+    return data
+ }
+)
 
 export const photoSlice = createSlice({
   name: "photo",
@@ -218,6 +225,16 @@ export const photoSlice = createSlice({
       .addCase(comment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(getAllPhotos.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(getAllPhotos.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.error = false;
+        state.photos = action.payload;
       });
   },
 });
