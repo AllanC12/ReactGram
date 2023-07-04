@@ -87,6 +87,7 @@ const comment = async (data,id,token) => {
       .then((res) => res.json())
       .catch((err) => err);
     return res;
+
   } catch (error) {
     console.log(error);
   }
