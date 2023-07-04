@@ -101,8 +101,9 @@ export const comment = createAsyncThunk(
 );
 
 export const getAllPhotos = createAsyncThunk("photo/getall",
- async () => {
-    const data = await photoService.getAllPhotos()
+ async (_,thunkAPI) => {
+    const token = thunkAPI.getState().auth.user.token
+    const data = await photoService.getAllPhotos(token)
 
     return data
  }
