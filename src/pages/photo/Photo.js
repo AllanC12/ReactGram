@@ -19,7 +19,7 @@ const Photo = () => {
   const resetMessage = useResetComponentMessage(dispatch);
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
-  const { photos, photo, loading, error, message } = useSelector(
+  const {  photo, loading, error, message } = useSelector(
     (state) => state.photo
   );
 
@@ -37,12 +37,18 @@ const Photo = () => {
   const handleComment = (e) => {
     e.preventDefault();
 
-    const photoData = {
+    const commentData = {
       comment: commentText,
       id: photo._id,
     };
 
-    dispatch(comment(photoData));
+    dispatch(comment(commentData));
+
+    setCommentText("")
+
+    resetMessage()
+
+
   };
 
   if (loading) {
@@ -62,7 +68,8 @@ const Photo = () => {
               <input
                 type="text"
                 placeholder="Insira seu comentário"
-                onChange={(e) => setCommentText(e.target.value || "")}
+                onChange={(e) => setCommentText(e.target.value)}
+                value={commentText || ''}
               />
               <input type="submit" value="Comentar" />
             </form>
@@ -80,8 +87,8 @@ const Photo = () => {
                   <Link to={`/users/${comment.userId}`}>
                     <p>{comment.userName}</p>
                   </Link>
-                  <p>{comment.comment}</p>
                 </div>
+                  <p>{comment.comment}</p>
               </div>
             ))}
           </>
