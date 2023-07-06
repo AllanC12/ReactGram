@@ -113,7 +113,7 @@ const searchPhotos = async (query,token) => {
   try {
     const res = await fetch(api + "/photos/search?q=" + query)
                 .then(res => res.json())
-                 .catch(err => err)
+                .catch(err => err)
     return res
   } catch (error) {
     console.log(error)
