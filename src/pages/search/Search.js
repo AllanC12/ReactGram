@@ -13,8 +13,8 @@ import { searchPhotos,like } from '../../slices/photoSlice'
 const Search = () => {
     const query = useQuery()
     const search = query.get("q")
-    const resetMessage = useResetComponentMessage()
-    const dispatch = useDispatch(dispatch)
+    const dispatch = useDispatch()
+    const resetMessage = useResetComponentMessage(dispatch)
 
   return (
     <div>Search</div>
