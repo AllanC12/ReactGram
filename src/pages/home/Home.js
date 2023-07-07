@@ -14,7 +14,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const resetMessage = useResetComponentMessage(dispatch);
   const { user } = useSelector((state) => state.auth);
-  const { photos, photo, loading, error } = useSelector((state) => state.photo);
+  const { photos, loading, error } = useSelector((state) => state.photo);
 
   useEffect(() => {
     dispatch(getAllPhotos());

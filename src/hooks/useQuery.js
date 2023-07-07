@@ -6,3 +6,5 @@ export const useQuery = () => {
 
     return useMemo(()=> new URLSearchParams(search))
 }
+
+ 

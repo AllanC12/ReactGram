@@ -111,7 +111,7 @@ const searchPhotos = async (query,token) => {
   const config = requestConfig("GET",null,token)
 
   try {
-    const res = await fetch(api + "/photos/search?q=" + query)
+    const res = await fetch(api + "/photos/search?q=" + query,config)
                 .then(res => res.json())
                 .catch(err => err)
     return res
