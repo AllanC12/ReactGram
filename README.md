@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+### Tecnologias utilizadas
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ _ ReactJS <br>
+ _ ReactHooks <br>
+ _ React Router <br>
+ _ Mongo DB
 
-## Available Scripts
+ ### Descrição do projeto
 
-In the project directory, you can run:
+ O projeto React com MongoDB é uma aplicação web que utiliza o framework React para criar uma interface de usuário interativa e responsiva, e o banco de dados MongoDB para armazenar e gerenciar os dados.
 
-### `npm start`
+A aplicação é desenvolvida com base nos princípios da arquitetura cliente-servidor, em que o React atua como o cliente, responsável pela exibição e interação com os dados, e o MongoDB atua como o servidor de banco de dados, armazenando os dados persistentemente.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Preview
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<div allign="center"> 
+    <img src="https://github.com/AllanC12/ReactGram/assets/112294367/059e29d9-ad4d-435b-b720-604b1507c7f5" width="700px"/>
+    <img src="https://github.com/AllanC12/ReactGram/assets/112294367/8f2aa1fd-052d-4a11-9e7d-8c37bd9f5c90" width="700px"/>
+    <img src="https://github.com/AllanC12/ReactGram/assets/112294367/3f80f169-bb6e-4a5e-b3e4-d7bb6543f520" width="700px"/>
+    <img src="https://github.com/AllanC12/ReactGram/assets/112294367/3cf0288b-d91b-41df-ac8d-ab378b04ac80" width="700px"/>
+</div>
